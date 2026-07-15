@@ -1,3 +1,5 @@
+package apptask;
+
 public class TareaProyecto extends TareaBase {
     
     private String integrantesGrupo;

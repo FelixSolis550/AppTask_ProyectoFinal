@@ -58,8 +58,18 @@ public class Tarea extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,6 +131,42 @@ public class Tarea extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    this.dispose(); 
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      
+        String materia = jTextField1.getText();
+        String fecha = jTextField2.getText();
+        String descripcion = jTextArea1.getText();
+
+      
+        if (materia.isEmpty() || fecha.isEmpty() || descripcion.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.");
+            return;
+        }
+
+        try {
+          
+            TareaBase nuevaTarea = new TareaExamen(materia, descripcion, fecha, "Evaluación general");
+
+            
+            GestorTareas gestor = new GestorTareas();
+            gestor.agregarTarea(nuevaTarea);
+
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "¡Tarea guardada exitosamente!\nDetalles: " + nuevaTarea.obtenerDetalles());
+
+            // 5. Cerrar la ventana de registro
+            this.dispose();
+
+        } catch (Exception e) {
+          
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
